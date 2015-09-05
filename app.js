@@ -23,6 +23,19 @@ var app = express();
 app.get('/', function (req, res) {
   res.redirect('/index.html');
 });
+
+app.get('/index', function (req, res) {
+  res.redirect('/index.html');
+});
+
+app.get('/about', function (req, res) {
+  res.redirect('/index.html');
+});
+
+app.get('/resume', function (req, res) {
+  res.redirect('/resume.html');
+});
+
 app.use(express.static('views'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/img', express.static(__dirname + '/img'));
