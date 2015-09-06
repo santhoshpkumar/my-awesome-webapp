@@ -18,7 +18,7 @@ var express = require('express');
 
 var app = express();
 
-// [START hello_world]
+// [START AWESOME APP]
 /* Say hello! */
 app.get('/', function (req, res) {
   res.redirect('/index.html');
@@ -42,7 +42,34 @@ app.use('/img', express.static(__dirname + '/img'));
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/fonts', express.static(__dirname + '/fonts'));
 
-// [END hello_world]
+// [END AWESOME APP]
+
+// Error Helpers
+app.get('/404', function(req, res, next){
+  // trigger a 404 since no other middleware
+  // will match /404 after this one, and we're not
+  // responding here
+  next();
+});
+
+app.use(function(req, res, next){
+
+  // [PATCH] respond with homepage page for now for any incorrect address.
+  if (req.accepts('html')) {
+    res.redirect('/index.html');
+    return;
+  }
+
+  res.status(404);
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Not found');
+});
 
 // [START server]
 /* Start the server */
