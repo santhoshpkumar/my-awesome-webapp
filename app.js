@@ -36,11 +36,16 @@ app.get('/resume', function (req, res) {
   res.redirect('/resume.html');
 });
 
+app.get('/sorting', function (req, res) {
+  res.redirect('/sorting/index.html');
+});
+
 app.use(express.static('views'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/img', express.static(__dirname + '/img'));
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/fonts', express.static(__dirname + '/fonts'));
+app.use('/sorting', express.static(__dirname + '/sorting'));
 
 // [END AWESOME APP]
 
