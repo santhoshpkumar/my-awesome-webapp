@@ -13,6 +13,7 @@
 #
 # [START runtime]
 runtime: nodejs
+version: 1.0.1
 vm: true
 api_version: 1
 # [END runtime]
@@ -27,7 +28,7 @@ resources:
 # [START scaling]
 automatic_scaling:
   min_num_instances: 1
-  max_num_instances: 5
+  max_num_instances: 2
   cool_down_period_sec: 60
   cpu_utilization:
     target_utilization: 0.5
