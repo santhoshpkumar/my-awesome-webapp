@@ -13,7 +13,6 @@
 #
 # [START runtime]
 runtime: nodejs
-version: 1.0.1
 vm: true
 api_version: 1
 # [END runtime]
