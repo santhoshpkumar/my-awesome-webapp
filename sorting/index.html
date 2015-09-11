@@ -296,7 +296,6 @@
       </div>
     </section>
 
-    <!-- TODO  -->
     <section class="feature" id = "shellsort">
       <div class="container">
         <div class="row">
@@ -319,6 +318,7 @@
         <!--<a href="#" class="btn btn-default">Read More</a>-->
       </div>
     </section>
+
     <section >
       <div class="container">
         <div class="row">
@@ -365,6 +365,84 @@
       </div>
     </section>
 
+    <!-- TODO -->
+
+    <section class="feature" id = "shellsort">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Heap Sort</h2>
+            <p>Heapsort uses heap to sort elements. Heap is a special kind of tree data structure in which the
+              root element is always greater (MaxHeap) or smaller (MinHeap) than its children. This heap should not be
+              confused with the computer memory heap.
+            </p>
+            <p>The first process of heap sort is to create a max heap. Once a heap is created, remove the root node
+              element and replace the last element in the unsorted list to be the max node. The removed value can be
+              pushed to the sorted list towards the bottom.
+              Every time we replace the root node value, We now have to check if the heap
+              property is satisfied, and re-creating the heap if required.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <ul>
+              <li> O(n log n) average case performance  </li>
+              <li> O(n log n) worst case performance </li>
+            </ul>
+          </div>
+        </div>
+        <!--<a href="#" class="btn btn-default">Read More</a>-->
+      </div>
+    </section>
+
+    <section >
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div id="heapShellSort" class="wrapper">
+              <canvas id='canvasHeapSort' style = 'position: relative; left: 0px; top: 0px;' >
+              </canvas>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h3>Heap Sort Animation</h3>
+            <p>
+              <button class="btn btn-large btn-default" id="btnHeapReset"><span class="glyphicon glyphicon-fast-backward"></span></button>
+              <button class="btn btn-large btn-default" id="btnHeapPrev"><span class="glyphicon glyphicon-step-backward"></span></button>
+              <button class="btn btn-large btn-default" id="btnHeapPause"><span class="glyphicon glyphicon-pause"></span></button>
+              <button class="btn btn-large btn-default" id="btnHeapPlay"><span class="glyphicon glyphicon-play"></span></button>
+              <button class="btn btn-large btn-default" id="btnHeapNext"><span class="glyphicon glyphicon-step-forward"></span></button>
+              <button class="btn btn-large btn-default" id="btnHeapFin"><span class="glyphicon glyphicon-fast-forward"></span></button>
+            </p>
+            <p>
+              <button class="btn btn-large btn-default" id="btnHeapRandom"><span class="glyphicon glyphicon-random "> Randomize </span></button>
+            </p>
+            </p><p>
+            <button class="btn btn-large btn-default" id="btnHeapLess"><span class="glyphicon glyphicon glyphicon-minus"></span></button>
+            <a class="btn btn-large btn-default disabled" id="btnHeapNoOfItems"> 20 </a>
+            <button class="btn btn-large btn-default" id="btnHeapMore"><span class="glyphicon glyphicon glyphicon-plus"></span></button>
+            No of Items
+          </p><p>
+            <button class="btn btn-large btn-default" id="btnHeapDec"><span class="glyphicon glyphicon glyphicon-minus"></span></button>
+            <a class="btn btn-large btn-default disabled" id="btnHeapMaxValue"> 80 </a>
+            <button class="btn btn-large btn-default" id="btnHeapInc"><span class="glyphicon glyphicon glyphicon-plus"></span></button>
+            Max value of an Item
+          </p>
+            <p>
+              <button class="btn btn-large btn-default" id="btnHeapSlow"><span class="glyphicon glyphicon glyphicon-minus"></span></button>
+              <button class="btn btn-large btn-default disabled" id="btnHeapSpeed"> 03 </button>
+              <button class="btn btn-large btn-default" id="btnHeapFast"><span class="glyphicon glyphicon glyphicon-plus"></span></button>
+              Animation Speed
+            </p>
+            <!--<a class="btn btn-primary btn-cyan btn-large">Learn more</a>-->
+            <!--<a class="btn btn-primary btn-cyan btn-large">Logic tracer</a>-->
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <footer>
       <div class="container">
         <div class="row">
@@ -384,12 +462,14 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!--<script src="js/jquery-2.1.4.min.js"></script>-->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bargraph.js"></script>
     <script src="js/bubblesort.js"></script>
     <script src="js/selectionsort.js"></script>
     <script src="js/insertionsort.js"></script>
     <script src="js/shellsort.js"></script>
+    <script src="js/heapsort.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

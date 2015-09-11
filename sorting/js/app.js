@@ -25,11 +25,13 @@
     var selectionSort, selectionSortGraph,
         bubbleSort, bubbleSortGraph,
         insertionSort, insertionSortGraph,
-        shellSort, shellSortGraph;
+        shellSort, shellSortGraph,
+        heapSort, heapSortGraph;
     var bubbleSortCanvas = document.getElementById('canvasBubbleSort');
     var selectionSortCanvas = document.getElementById('canvasSelectionSort');
     var insertionSortCanvas = document.getElementById('canvasInsertionSort');
     var shellSortCanvas = document.getElementById('canvasShellSort');
+    var heapSortCanvas = document.getElementById('canvasHeapSort');
 
     initialize();
     //Bubble Sort
@@ -360,21 +362,105 @@
         }
     });
 
+    //Heap Sort
+    $('#btnHeapPlay').click(function () {
+      heapSortGraph.play();
+    });
+    $('#btnHeapPause').click(function () {
+      heapSortGraph.pause();
+    });
+    $('#btnHeapRandom').click(function () {
+      heapSortGraph.pause();
+      heapSort.setArray(generateRandomArray(heapSortGraph.getNoOfItems(), heapSortGraph.getMaxValue()));
+      heapSortGraph.update(heapSort);
+      heapSortGraph.reset();
+    });
+    $('#btnHeapReset').click(function () {
+      heapSortGraph.reset();
+    });
+    $('#btnHeapFin').click(function () {
+      heapSortGraph.fin();
+    });
+    $('#btnHeapNext').click(function () {
+      heapSortGraph.next();
+    });
+    $('#btnHeapPrev').click(function () {
+      heapSortGraph.previous();
+    });
+    $('#btnHeapSlow').click(function () {
+      heapSortGraph.increaseAnimationSpeed();
+      $('#btnHeapSpeed').text("0"+heapSortGraph.getAnimationSpeed());
+    });
+    $('#btnHeapFast').click(function () {
+      heapSortGraph.decreaseAnimationSpeed();
+      if (heapSortGraph.getAnimationSpeed() === 10) {
+        $('#btnHeapSpeed').text(heapSortGraph.getAnimationSpeed());
+      }else{
+        $('#btnHeapSpeed').text("0"+heapSortGraph.getAnimationSpeed());
+      }
+    });
+    $('#btnHeapLess').click(function () {
+      heapSortGraph.pause();
+      var itemsCount = heapSortGraph.getNoOfItems();
+      if (itemsCount > defaults.arrayMinLimit) {
+        heapSort.setArray(generateRandomArray(--itemsCount, heapSortGraph.getMaxValue()));
+        heapSortGraph.update(heapSort);
+        heapSortGraph.reset();
+        heapSortGraph.setNoOfItems(itemsCount);
+        $('#btnHeapNoOfItems').text(itemsCount);
+      }
+    });
+    $('#btnHeapMore').click(function () {
+      heapSortGraph.pause();
+      var itemsCount = heapSortGraph.getNoOfItems();
+      if (itemsCount < defaults.arrayMaxLimit) {
+        heapSort.setArray(generateRandomArray(++itemsCount, heapSortGraph.getMaxValue()));
+        heapSortGraph.update(heapSort);
+        heapSortGraph.reset();
+        heapSortGraph.setNoOfItems(itemsCount);
+        $('#btnHeapNoOfItems').text(itemsCount);
+      }
+    });
+    $('#btnHeapDec').click(function () {
+      heapSortGraph.pause();
+      var itemsMax = heapSortGraph.getMaxValue();
+      if (itemsMax > defaults.maxValueMin) {
+        heapSort.setArray(generateRandomArray(heapSortGraph.getNoOfItems(), --itemsMax));
+        heapSortGraph.update(heapSort);
+        heapSortGraph.reset();
+        heapSortGraph.setMaxValue(itemsMax);
+        $('#btnHeapMaxValue').text(itemsMax);
+      }
+    });
+    $('#btnHeapInc').click(function () {
+      heapSortGraph.pause();
+      var itemsMax = heapSortGraph.getMaxValue();
+      if (itemsMax < defaults.maxValueMax) {
+        heapSort.setArray(generateRandomArray(heapSortGraph.getNoOfItems(), ++itemsMax));
+        heapSortGraph.update(heapSort);
+        heapSortGraph.reset();
+        heapSortGraph.setMaxValue(itemsMax);
+        $('#btnHeapMaxValue').text(itemsMax);
+      }
+    });
 
     $('#btnBubbleSpeed').text("0"+defaults.animationSpeed);
     $('#btnSelectionSpeed').text("0"+defaults.animationSpeed);
     $('#btnInsertionSpeed').text("0"+defaults.animationSpeed);
     $('#btnShellSpeed').text("0"+defaults.animationSpeed);
+    $('#btnHeapSpeed').text("0"+defaults.animationSpeed);
 
     $('#btnBubbleNoOfItems').text(defaults.arrayLimit);
     $('#btnSelectionNoOfItems').text(defaults.arrayLimit);
     $('#btnInsertionNoOfItems').text(defaults.arrayLimit);
     $('#btnShellNoOfItems').text(defaults.arrayLimit);
+    $('#btnHeapNoOfItems').text(defaults.arrayLimit);
 
     $('#btnBubbleMaxValue').text(defaults.maxValueLimit);
     $('#btnSelectionMaxValue').text(defaults.maxValueLimit);
     $('#btnInsertionMaxValue').text(defaults.maxValueLimit);
     $('#btnShellMaxValue').text(defaults.maxValueLimit);
+    $('#btnHeapMaxValue').text(defaults.maxValueLimit);
 
     function initialize() {
         // Register an event listener to
@@ -389,11 +475,13 @@
         selectionSortGraph = new BarGraph(selectionSortCanvas.getContext('2d'));
         insertionSortGraph = new BarGraph(insertionSortCanvas.getContext('2d'));
         shellSortGraph = new BarGraph(shellSortCanvas.getContext('2d'));
+        heapSortGraph = new BarGraph(heapSortCanvas.getContext('2d'));
 
         bubbleSort = new BubbleSort();
         selectionSort = new SelectionSort();
         insertionSort = new InsertionSort();
         shellSort = new ShellSort();
+        heapSort = new HeapSort();
 
         updateCanvasSize();
 
@@ -425,6 +513,13 @@
         shellSortGraph.update(shellSort);
         shellSortGraph.play();
 
+        heapSort.setArray(randomArr.slice());
+        heapSortGraph.setNoOfItems(defaults.arrayLimit);
+        heapSortGraph.setMaxValue(defaults.maxValueLimit);
+        heapSortGraph.setAnimationSpeed(defaults.animationSpeed);
+        heapSortGraph.update(heapSort);
+        heapSortGraph.play();
+
     }
 
     function initialiseRandomArray(){
@@ -447,28 +542,37 @@
         selectionSortGraph.reSize();
         insertionSortGraph.reSize();
         shellSortGraph.reSize();
+        heapSortGraph.reSize();
     }
 
     function updateCanvasSize() {
         var newWidth = window.innerWidth;
         if (newWidth <= defaults.canvasWidth){
-            bubbleSortGraph.setWidth(newWidth - parseInt(newWidth/10));
-            selectionSortGraph.setWidth(newWidth - parseInt(newWidth/10));
-            insertionSortGraph.setWidth(newWidth - parseInt(newWidth/10));
+          bubbleSortGraph.setWidth(newWidth - parseInt(newWidth/10));
+          selectionSortGraph.setWidth(newWidth - parseInt(newWidth/10));
+          insertionSortGraph.setWidth(newWidth - parseInt(newWidth/10));
+          shellSortGraph.setWidth(newWidth - parseInt(newWidth/10));
+          heapSortGraph.setWidth(newWidth - parseInt(newWidth/10));
         }else{
-            bubbleSortGraph.setWidth(defaults.canvasWidth);
-            selectionSortGraph.setWidth(defaults.canvasWidth);
-            insertionSortGraph.setWidth(defaults.canvasWidth);
+          bubbleSortGraph.setWidth(defaults.canvasWidth);
+          selectionSortGraph.setWidth(defaults.canvasWidth);
+          insertionSortGraph.setWidth(defaults.canvasWidth);
+          shellSortGraph.setWidth(defaults.canvasWidth);
+          heapSortGraph.setWidth(defaults.canvasWidth);
         }
         var newHeight = window.innerHeight;
         if (newHeight <= defaults.canvasHeight){
-            bubbleSortGraph.setHeight(newHeight - parseInt(newHeight/10));
-            selectionSortGraph.setHeight(newHeight - parseInt(newHeight/10));
-            insertionSortGraph.setHeight(newHeight - parseInt(newHeight/10));
+          bubbleSortGraph.setHeight(newHeight - parseInt(newHeight/10));
+          selectionSortGraph.setHeight(newHeight - parseInt(newHeight/10));
+          insertionSortGraph.setHeight(newHeight - parseInt(newHeight/10));
+          shellSortGraph.setHeight(newHeight - parseInt(newHeight/10));
+          heapSortGraph.setHeight(newHeight - parseInt(newHeight/10));
         }else{
-            bubbleSortGraph.setHeight(defaults.canvasHeight);
-            selectionSortGraph.setHeight(defaults.canvasHeight);
-            insertionSortGraph.setHeight(defaults.canvasHeight);
+          bubbleSortGraph.setHeight(defaults.canvasHeight);
+          selectionSortGraph.setHeight(defaults.canvasHeight);
+          insertionSortGraph.setHeight(defaults.canvasHeight);
+          shellSortGraph.setHeight(defaults.canvasHeight);
+          heapSortGraph.setHeight(defaults.canvasHeight);
         }
     }
 }());
