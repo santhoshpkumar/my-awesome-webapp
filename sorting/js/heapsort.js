@@ -33,7 +33,7 @@ function HeapSort() {
     var arrayTrace = [];
     for (var i = 0; i < size; i++) {
       if ( i === left || i ===index){
-        arrayTrace.push({value: arr[i], color: "blue"});
+        arrayTrace.push({value: arr[i], color: "purple"});
       }else {
         arrayTrace.push({value: arr[i], color: "red"});
       }
